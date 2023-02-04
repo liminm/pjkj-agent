@@ -8,26 +8,5 @@ The agent works by simulating all possible sensible moves for both player and ad
 
 # Software architechture
 
-The entire system consists of 4 Parts:
-
-```
-+-----------------------------------------------------------+
-| +------------+   +--------------------------------------+ |
-| |  FRONTEND  |   |                BACKEND               | |
-| |            |   | +--------------+   +---------------+ | |
-| | - Views    |   | |  CONTROLLER  |   |  RULESERVER   | | |
-| | - Settings |   | |              |<->|               | | |
-| | - Manage   |   | | - Manage DB  |   | - Check move  | | |
-| |  - Teams   |   | | - REST API   |   | - Check state | | |
-| |  - Players |   | | - Combine    |   +---------------+ | |
-| |  - Games   |<->| |   Everything |                     | |
-| | - Play     |   | | - Time       |   +---------------+ | |
-| |            |   | |   Management |   |    STORAGE    | | |
-| |            |   | |              |   |               | | |
-| |            |   | |              |<->| - Persistent  | | |
-| |            |   | |              |   |   Database    | | |
-| |            |   | +--------------+   +---------------+ | |
-| +------------+   +--------------------------------------+ |
-+-----------------------------------------------------------+
-```
+The project is divided into a python part dealing with the server communication and a C part dealing with everything concerning the move generation and all algorithmic aspects.
 
