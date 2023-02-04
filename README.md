@@ -6,7 +6,7 @@ The agent communicates with the game server and gets as input the current state 
 The performance of the agent depends on the search time set on the server side allowing the agent to search deeper into the search space and calculate more moves in advance.
 The agent works by simulating all possible sensible moves for both player and adversary and by reducing the search space through various classical AI techniques such as the Minimax algorithm.
 
-# Software architechture
+# Software architecture
 
-The project is divided into a python part dealing with the server communication and a C part dealing with everything concerning the move generation and all algorithmic aspects.
+The project is divided into a part dealing with all communication with the server written in Python and a part dealing with the move generation and all algorithmic aspects written in C for performance aspects.
 
