@@ -1,7 +1,7 @@
 AI project game agent
 ======================
 
-Welcome to the repository for Group B's agent in the 2020 AI tournament at TU Berlin AOT! Our agent is designed to play the game "Jump Sturdy."
+Welcome to the repository for Group B's agent in the 2020 AI tournament at TU Berlin AOT! Our agent is designed to play the game "Jump Sturdy" and made to work with the [pjkj-server](https://github.com/liminm/pjkj-server).
 
 The agent communicates with the game server and receives updates on the current state of the game board. Based on this information, it calculates and returns the best possible move for our player.
 
