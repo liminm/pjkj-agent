@@ -13,4 +13,5 @@ The agent uses various classical AI techniques, such as the Minimax algorithm, t
 
 The project is split into two parts: communication with the server in Python found in the [home directory](https://github.com/liminm/pjkj-agent) and move generation and algorithmic elements in C for improved performance found [here](https://github.com/liminm/pjkj-agent/tree/main/src/AI).
 
+The agent is containerized using Docker for server communication. 
 
