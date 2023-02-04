@@ -1,0 +1,2 @@
+jumpsturdy: main.c ab-cut.c eval.c get_move_as_string.c move_generator.c parseFen.c compare.c
+	gcc -o main main.c ab-cut.c eval.c get_move_as_string.c move_generator.c parseFen.c compare.c hash_functions.c quicksort.c -lm

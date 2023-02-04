@@ -1,0 +1,5 @@
+flask
+numpy
+pymongo
+sseclient~=0.0.26
+requests~=2.23.0
