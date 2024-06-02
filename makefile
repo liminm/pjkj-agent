@@ -1,2 +1,2 @@
-jumpsturdy: main.c ab-cut.c eval.c get_move_as_string.c move_generator.c parseFen.c compare.c
-	gcc -o main main.c ab-cut.c eval.c get_move_as_string.c move_generator.c parseFen.c compare.c hash_functions.c quicksort.c -lm
+jumpsturdy: main.cpp ab-cut.cpp eval.cpp get_move_as_string.cpp move_generator.cpp parseFen.cpp compare.cpp
+	g++ -o main main.cpp ab-cut.cpp eval.cpp get_move_as_string.cpp move_generator.cpp parseFen.cpp compare.cpp hash_functions.cpp quicksort.cpp -lm

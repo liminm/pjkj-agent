@@ -10,15 +10,14 @@ void freemoves(unsigned long long int ***moves){
     free(moves);
 }
 
-Node *generate_node(Node *next_move, unsigned long long int sw, unsigned long long int sb, unsigned long long int dw, unsigned long long int db, unsigned long long int mw, unsigned long long int mb){
-    Node *node;
-    node = (Node *) malloc(sizeof(Node));
-    if (node == NULL) {
+Node* generate_node(Node* next_move, unsigned long long int sw, unsigned long long int sb, unsigned long long int dw, unsigned long long int db, unsigned long long int mw, unsigned long long int mb){
+    Node* node = new Node;
+    if (node == nullptr) {
         printf("Error: malloc initialized Node with NULL\n");
-        return NULL;
+        return nullptr;
     }
 
-    node->children = NULL;
+    node->children = nullptr;
     node->next_move = next_move;
 
     //bitboards
@@ -34,22 +33,22 @@ Node *generate_node(Node *next_move, unsigned long long int sw, unsigned long lo
     return node;
 }
 
-Node *alphabeta(Node *node, int depth, int alpha, int beta, char maximizingPlayer){
+Node* alphabeta(Node* node, int depth, int alpha, int beta, char maximizingPlayer){
 
-    if ( depth == 0){
+    if (depth == 0){
         //printf("%d\n", node->value);
         return node;
     }
-    unsigned long long int ***moves = calcmovesboard(node->sw, node->sb, node->dw, node->db, node->mw, node->mb, node->player);
+    unsigned long long int*** moves = calcmovesboard(node->sw, node->sb, node->dw, node->db, node->mw, node->mb, node->player);
     int moveCount = 0;
     int count = 0;
-    node->children = malloc(sizeof(Node*) * (numMoves+1));
+    node->children = new Node*[numMoves+1];
 
     for (int i=0; i < 12; i++){
         count = 0;
         for (int j=0; j < 5; j++){
             if (count_set_bits(moves[i][j][0] ^ moves[i][j][1] ^ moves[i][j][2] ^ moves[i][j][3] ^ moves[i][j][4] ^ moves[i][j][5]) != 0){
-                Node* child = generate_node(NULL, moves[i][j][0], moves[i][j][1],
+                Node* child = generate_node(nullptr, moves[i][j][0], moves[i][j][1],
                                             moves[i][j][2], moves[i][j][3], moves[i][j][4], moves[i][j][5]);
                 child->player = !(node->player);
                 child->value = evalBoard(child, maximizingPlayer);
@@ -77,10 +76,10 @@ Node *alphabeta(Node *node, int depth, int alpha, int beta, char maximizingPlaye
         }
     }
 
-    node->children[moveCount] = NULL;
+    node->children[moveCount] = nullptr;
 
     freemoves(moves);
-    if(*node->children == NULL){
+    if(node->children == nullptr){
         return node;
     }
 
@@ -90,31 +89,30 @@ Node *alphabeta(Node *node, int depth, int alpha, int beta, char maximizingPlaye
     quickSortCall(node,moveCount-1, (maximizingPlayer - '0') );
 
 
-    if ( maximizingPlayer == '1' ){
+    if (maximizingPlayer == '1'){
         //printf("Maximizer\n");
-        Node *current_node;
-        current_node = (Node *) malloc(sizeof(Node));
+        Node* current_node = new Node;
         current_node->value = INT_MIN;
-        current_node->children = NULL;
+        current_node->children = nullptr;
         //Node *current_node_old = current_node;
 
-        for ( int i = 0; i < MAX_CHILDREN; ++i ){
-            Node *child = node->children[i]; //get next childnode
-            if( child == NULL ){
+        for (int i = 0; i < MAX_CHILDREN; ++i){
+            Node* child = node->children[i]; //get next childnode
+            if(child == nullptr){
                 break;
             }
             //check for ruhesuche
             /*unsigned int ruhig = opponent_can_slay(child, child->player); // 0 - unruhig, 1 - ruhig
 
-            if ( ruhig == 0 && depth == 1 ){
+            if (ruhig == 0 && depth == 1){
                 depth += 1;
             }*/
 
-            current_node = get_max_Node( current_node, alphabeta( child, depth - 1, alpha, beta, '0') );
-            
-            alpha = get_max_Value( alpha, current_node->value);
+            current_node = get_max_Node(current_node, alphabeta(child, depth - 1, alpha, beta, '0'));
 
-            if (alpha >= beta ){
+            alpha = get_max_Value(alpha, current_node->value);
+
+            if (alpha >= beta){
                 break;
             }
         }
@@ -125,31 +123,30 @@ Node *alphabeta(Node *node, int depth, int alpha, int beta, char maximizingPlaye
     }
     else { 
         //printf("Minimzer\n");
-        Node *current_node;
-        current_node = (Node *) malloc(sizeof(Node));
+        Node* current_node = new Node;
         current_node->value = INT_MAX;
-        current_node->children = NULL;
+        current_node->children = nullptr;
         //Node *current_node_old = current_node;
 
         
-        for ( int i = 0; i < MAX_CHILDREN; ++i ){
-            Node *child = node->children[i]; //get next childnode
+        for (int i = 0; i < MAX_CHILDREN; ++i){
+            Node* child = node->children[i]; //get next childnode
             
-            if( child == NULL ){
+            if(child == nullptr){
                 break;
             }  
 
             /*unsigned int ruhig = opponent_can_slay(child, child->player); // 0 - unruhig, 1 - ruhig
 
-            if ( ruhig == 0 && depth == 1 ){
+            if (ruhig == 0 && depth == 1){
                 depth += 1;
             }*/
 
-            current_node = get_min_Node( current_node, alphabeta( child, depth - 1, alpha, beta, '1') );
+            current_node = get_min_Node(current_node, alphabeta(child, depth - 1, alpha, beta, '1'));
 
             beta = get_min_Value(beta, current_node->value);
 
-            if (alpha >= beta ){
+            if (alpha >= beta){
                 break;
             }
         }
